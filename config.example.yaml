@@ -1,0 +1,17 @@
+# portwatch example configuration
+# Copy to config.yaml and adjust as needed.
+
+scan:
+  # Network interface or host to scan.
+  interface: "localhost"
+
+  # Inclusive port range to monitor.
+  port_start: 1
+  port_end: 65535
+
+  # How often to run a full scan (seconds).
+  interval_seconds: 60
+
+alerting:
+  # Path to write alert log. Leave empty to use stdout.
+  log_file: ""
