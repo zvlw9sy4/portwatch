@@ -57,6 +57,17 @@ func (l *LogNotifier) Notify(e Event) error {
 	return err
 }
 
+// NotifyAll sends all events to the notifier, returning the first error
+// encountered along with the number of events successfully delivered.
+func NotifyAll(n Notifier, events []Event) (int, error) {
+	for i, e := range events {
+		if err := n.Notify(e); err != nil {
+			return i, fmt.Errorf("alert: failed to notify event %d: %w", i, err)
+		}
+	}
+	return len(events), nil
+}
+
 // BuildEvents converts a diff result into a slice of alert Events.
 func BuildEvents(opened, closed []scanner.Port) []Event {
 	now := time.Now()
