@@ -12,5 +12,10 @@
 //		notifier.Send(event)
 //	}
 //
-// Call Flush periodically to reclaim memory from expired entries.
+// Alert keys are arbitrary strings that identify a unique alert condition,
+// such as a combination of host, port, and state (e.g. "host:port:open").
+// The caller is responsible for constructing keys consistently.
+//
+// Call Flush periodically to reclaim memory from expired entries. A
+// reasonable interval is the same duration as the cooldown window itself.
 package ratelimit
