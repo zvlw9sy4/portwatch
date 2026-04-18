@@ -53,3 +53,11 @@ func TestLoadRulesEmpty(t *testing.T) {
 		t.Fatalf("expected empty rules")
 	}
 }
+
+func TestLoadRulesInvalidYAML(t *testing.T) {
+	p := writeTempFilter(t, "ignore:\n  - port: [unclosed\n")
+	_, err := filter.LoadRules(p)
+	if err == nil {
+		t.Fatal("expected error for invalid YAML")
+	}
+}
