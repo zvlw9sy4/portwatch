@@ -1,9 +1,9 @@
-// Package notify provides outbound notification backends for portwatch alerts.
+// Package notify provides pluggable notifier backends for portwatch alerts.
 //
-// Currently supported backends:
+// Each notifier implements a Notify(alert.Event) error method and can be
+// registered with the alert.Dispatcher to receive port-change events.
 //
-//   - WebhookNotifier: HTTP POST JSON payloads to a configured URL.
-//
-// Each notifier is independent and can be wired into the alert dispatcher
-// via the alert.Notifier interface.
+// Available notifiers:
+//   - WebhookNotifier – HTTP POST to a configurable endpoint.
+//   - EmailNotifier   – SMTP email via PlainAuth.
 package notify
