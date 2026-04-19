@@ -6,7 +6,13 @@
 // restarts, enabling accurate opened/closed port detection even after the
 // process is restarted.
 //
-// Typical usage:
+// # File format
+//
+// Snapshots are stored as newline-terminated JSON objects. If the file does
+// not exist, Load returns an empty Snapshot without an error, allowing the
+// first run to proceed without special-casing a missing state file.
+//
+// # Typical usage
 //
 //	store := state.NewStore("/var/lib/portwatch/state.json")
 //	prev, _ := store.Load()
