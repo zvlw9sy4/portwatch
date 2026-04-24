@@ -57,3 +57,18 @@ func (t *Throttler) Reset() {
 	defer t.mu.Unlock()
 	t.lastRun = time.Time{}
 }
+
+// TimeUntilReady returns the duration remaining before the next call to Ready
+// will return true. It returns zero if the throttler is already ready.
+func (t *Throttler) TimeUntilReady() time.Duration {
+	t.mu.Lock()
+	defer t.mu.Unlock()
+	if t.lastRun.IsZero() {
+		return 0
+	}
+	elapsed := t.clock().Sub(t.lastRun)
+	if elapsed >= t.interval {
+		return 0
+	}
+	return t.interval - elapsed
+}
